@@ -1,0 +1,57 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location":  {
+            "defaultValue": "southcentralus",
+            "type": "String"
+        },
+        "accountType": {
+            "defaultvalue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Premium_LRS"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Stoarge Account Type"
+            }
+        }
+    },
+    "variables": {
+        "name": "[concat('storage',variables('suffix'))]",
+        "suffix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
+        "kind":"storage",
+        "httpsTrafficOnlyEnabled":false
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-10-01",
+            "name": "[variables('name')]",
+            "location": "[parameters('location')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "[parameters('accountType')]"
+            },
+            "kind": "[variables('kind')]",
+            "properties": {
+                "supportsHttpsTrafficOnly": "[variables('httpsTrafficOnlyEnabled')]",
+                "encryption": {
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        },
+                        "file": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}
