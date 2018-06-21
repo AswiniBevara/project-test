@@ -1,0 +1,24 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "publicipAdresssettings": {
+            "value": "object"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('publicipAdresssettings').publicIpAddressName]",
+            "type": "Microsoft.Network/publicIpAddresses",
+            "apiVersion": "2017-08-01",
+            "location": "[parameters('publicipAdresssettings').location]",
+            "properties": {
+                "publicIpAllocationMethod": "[parameters('publicipAdresssettings').publicIpAddressType]"
+            },
+            "sku": {
+                "name": "[variables('publicipAdresssettings').publicIpAddressSku]"
+            }
+        }
+    ]
+}
