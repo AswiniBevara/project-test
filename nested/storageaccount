@@ -9,7 +9,7 @@
     "variables": {},
     "resources": [
         {
-            "name": "[parameters('storaeSettings').diagnosticsStorageAccountName]",
+            "name": "[parameters('storageSettings').diagnosticsStorageAccountName]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2015-06-15",
             "location": "[parameters('storageSettings').location]",
