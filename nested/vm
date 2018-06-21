@@ -1,0 +1,57 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmSettings": {
+            "value": "object"
+        },
+        "nicSettings": {
+            "value": "object"
+        }
+    },
+    "variables": {},
+    "resources": [
+  {
+            "name": "[parameters('vmSettings').virtualMachineName]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('vmSettings').location]",
+            "properties": {
+                "osProfile": {
+                    "computerName": "[parameters('vmSettings').virtualMachineName]",
+                    "adminUsername": "[parameters('vmSettings').adminUsername]",
+                    "adminPassword": "[parameters('vmSettings').adminPassword]",
+                    "windowsConfiguration": {
+                        "provisionVmAgent": "true"
+                    }
+                },
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSettings').virtualMachineSize]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('vmSettings').publisher]",
+                        "offer": "[parameters('vmSettings').offer]",
+                        "sku": "[parameters('vmSettings').sku]",
+                        "version":"[parameters('vmSettings').version]"
+                    },
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType":"[parameters('vmSettings').storageAccountType]"
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('vmSettings').networkInterfaceName)]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
