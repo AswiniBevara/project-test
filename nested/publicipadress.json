@@ -17,7 +17,7 @@
                 "publicIpAllocationMethod": "[parameters('publicipAdresssettings').publicIpAddressType]"
             },
             "sku": {
-                "name": "[variables('publicipAdresssettings').publicIpAddressSku]"
+                "name": "[parameters('publicipAdresssettings').publicIpAddressSku]"
             }
         }
     ]
