@@ -4,10 +4,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmSettings": {
-            "value": "object"
+            "type": "object"
         },
         "nicSettings": {
-            "value": "object"
+            "type": "object"
         }
     },
     "variables": {},
