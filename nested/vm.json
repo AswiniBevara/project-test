@@ -47,7 +47,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('vmSettings').networkInterfaceName)]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nicSettings').networkInterfaceName)]"
                         }
                     ]
                 }
