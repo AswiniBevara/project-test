@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "nicSettings": {
-            "value": "object"
+            "type": "object"
         },
         "vnetSettings": {
-            "value": "object"
+            "type": "object"
         },
         "publicipAdresssettings": {
-            "value": "object"
+            "type": "object"
         },
         "nsgSettings": {
-            "value": "object"
+            "type": "object"
         }
     },
     "variables": {},
