@@ -8,7 +8,7 @@
     },
     "variables": {},
     "resources": [
-             {
+        {
             "name": "[parameters('vnetSettings').virtualNetworkName]",
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2018-02-01",
@@ -18,9 +18,8 @@
                     "addressPrefixes": [
                         "[parameters('vnetSettings').addressPrefix]"
                     ]
-                }
-            },
-              "subnets": [
+                },
+                "subnets": [
                     {
                         "name": "[parameters('vnetSettings').subnetName]",
                         "properties": {
@@ -29,9 +28,6 @@
                     }
                 ]
             }
-        ]
-    }
-        
-    
-            
-        
+        }
+    ]
+}
