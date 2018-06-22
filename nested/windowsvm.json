@@ -1,0 +1,194 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "type": "string"
+        },
+        "adminPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "storageSettings": {
+            "diagnosticsStorageAccountName": "[concat('storage',variables('suffix'))]",
+            "location": "[variables('location')]",
+            "accountType": "Standard_LRS"
+        },
+        "nicSettings": {
+            "networkInterfaceName": "windowsnic",
+            "location": "[variables('location')]",
+            "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetSettings').virtualNetworkName)]",
+            "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('vnetSettings').subnetName)]"
+        },
+        "publicipAddresssettings": {
+            "publicIpAddressName": "windowsipadress",
+            "publicIpAddressType": "Dynamic",
+            "publicIpAddressSku": "Basic",
+            "location": "[variables('location')]"
+        },
+        "vnetSettings": {
+            "virtualNetworkName": "[concat('vnet',variables('suffix'))]",
+            "location": "[variables('location')]",
+            "subnetName": "windowssubnet",
+            "addressPrefix": "10.1.0.0/24",
+            "subnetprefix": "10.1.0.0/24"
+        },
+        "nsgSettings": {
+            "networkSecurityGroupName": "windowsnsg",
+            "location": "[variables('location')]"
+        },
+        "vmsettings": {
+            "virtualMachineName": "winvm",
+            "location": "[variables('location')]",
+            "adminUsername": "[parameters('adminusername')]",
+            "adminPassword": "[parameters('adminPassword')]",
+            "virtualMachineSize": "Standard_B1s",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2016-Datacenter",
+            "version": "latest",
+            "storageAccountType": "Premium_LRS"
+        },
+        "location": "[resourceGroup().location]",
+        "deploymentApiVersion": "2018-05-01",
+        "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetSettings').virtualNetworkName)]",
+        "suffix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
+        "baseUrl": "https://raw.githubusercontent.com/anjanidevio/project-test/master/"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "vm",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [
+                "nic",
+                "storage"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/vm.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vmSettings": {
+                        "value": "[variables('vmSettings')]"
+                    },
+                    "nicSettings": {
+                        "value": "[variables('nicSettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "storage",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/storageaccount.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageSettings": {
+                        "value": "[variables('storageSettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "vnet",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/vnet.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vnetSettings": {
+                        "value": "[variables('vnetSettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "publicipaddress",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/publicipadress.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "publicipAddresssettings": {
+                        "value": "[variables('publicipAddresssettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "nic",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [
+                "nsg",
+                "publicipaddress",
+                "vnet"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/nic.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nicSettings": {
+                        "value": "[variables('nicSettings')]"
+                    },
+                    "vnetSettings": {
+                        "value": "[variables('vnetSettings')]"
+                    },
+                    "publicipAddresssettings": {
+                        "value": "[variables('publicipAddresssettings')]"
+                    },
+                    "nsgSettings": {
+                        "value": "[variables('nsgSettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "name": "nsg",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUrl'),'nested/nsg.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nsgSettings": {
+                        "value": "[variables('nsgSettings')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "adminUsername": {
+            "type": "string",
+            "value": "[parameters('adminUsername')]"
+        }
+    }
+}
