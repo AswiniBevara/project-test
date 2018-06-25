@@ -1,4 +1,3 @@
-
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -9,22 +8,20 @@
         "nicSettings": {
             "type": "object"
         }
+       
     },
     "variables": {},
     "resources": [
-  {
+        {
             "name": "[parameters('vmSettings').virtualMachineName]",
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2017-03-30",
+            "apiVersion": "2018-02-01",
             "location": "[parameters('vmSettings').location]",
             "properties": {
                 "osProfile": {
                     "computerName": "[parameters('vmSettings').virtualMachineName]",
                     "adminUsername": "[parameters('vmSettings').adminUsername]",
-                    "adminPassword": "[parameters('vmSettings').adminPassword]",
-                    "windowsConfiguration": {
-                        "provisionVmAgent": "true"
-                    }
+                    "adminPassword": "[parameters('vmSettings').adminPassword]"
                 },
                 "hardwareProfile": {
                     "vmSize": "[parameters('vmSettings').virtualMachineSize]"
@@ -34,12 +31,12 @@
                         "publisher": "[parameters('vmSettings').publisher]",
                         "offer": "[parameters('vmSettings').offer]",
                         "sku": "[parameters('vmSettings').sku]",
-                        "version":"[parameters('vmSettings').version]"
+                        "version": "[parameters('vmSettings').version]"
                     },
                     "osDisk": {
                         "createOption": "fromImage",
                         "managedDisk": {
-                            "storageAccountType":"[parameters('vmSettings').storageAccountType]"
+                            "storageAccountType": "Premium_LRS"
                         }
                     },
                     "dataDisks": []
