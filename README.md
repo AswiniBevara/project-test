@@ -52,9 +52,9 @@
 
 
 
-| **S.No**           | **Geography**           | **Paired Regions**                                                                                                                      
-| -------------              | -------------       | ----------    ||  ----------- |                                                                                             
-| **1**       | North America       | East US 2 | Central US
+| **S.No**           | **Geography**           | **Paired Regions**      ||                                                                                                                
+| -------------              | -------------       | ----------   |                                                                                      
+| **1**       | North America       | East US 2 | Central US  |
 
 
 
