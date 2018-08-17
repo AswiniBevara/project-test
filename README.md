@@ -44,3 +44,28 @@
 | **16**       | Korea                         | Korea South                 Korea Central
 | **17**       | UK        | UK South                UK West 
 | **18**   | UK    | UK West  UK South  
+
+
+| **S.No**           | **Geography**           | **Paired Regions** ||                                                                                                                      
+| -------------              | -------------       | ----------  |                                                                                                          
+| **1**       | North America       | East US 2    | Central US
+| **2**   | North America    | Central US  | East US 2  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
