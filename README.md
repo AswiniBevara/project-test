@@ -46,11 +46,9 @@
 | **18**   | UK    | UK West  UK South  
 
 
-| **S.No**           | **Geography**           | **Paired Regions** ||                                                                                                                      
-| -------------              | -------------       | ----------  |                                                                                                          
-| **1**       | North America       | East US 2    | Central US
-| **2**   | North America    | Central US  | East US 2  
-
+| **S.No**           | **Geography**           | **Paired Regions**                                                                                                                      
+| -------------              | -------------       | ----------  ||  | ---------------                                                                                                    
+| **1**       | North America       | East US 2    ||    | Central US
 
 
 
