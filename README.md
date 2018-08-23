@@ -70,6 +70,10 @@
 
 
 
+    "|   **S.No**  | *Geography**  | **Paired Regions**  || \n" +
+    "              |               |              |       | \n" +
+    " ------------ | :-----------: | -----------: | -----------: | \n" +
+    "**1**        | North America | East US 2    | Central US | \n" +
 
 
 
