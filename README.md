@@ -70,10 +70,15 @@
 
 
 
-    "|   **S.No**  | *Geography**  | **Paired Regions**  || \n" +
-    "              |               |              |       | \n" +
-    " ------------ | :-----------: | -----------: | -----------: | \n" +
-    "**1**        | North America | East US 2    | Central US | \n" +
+"|             |          Grouping           || \n" +
+    "First Header  | Second Header | Third Header | \n" +
+    " ------------ | :-----------: | -----------: | \n" +
+    "Content       |          *Long Cell*        || \n" +
+    "Content       |   **Cell**    |         Cell | \n" +
+    "                                               \n" +
+    "New section   |     More      |         Data | \n" +
+    "And more      | With an escaped '\\|'       || \n" +
+    "[Prototype table]                              \n";
 
 
 
